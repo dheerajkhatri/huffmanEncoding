@@ -1,0 +1,23 @@
+The tree shown above for "happy hip hop" is, in fact, an optimal tree—there are no other tree
+encodings by character that use fewer than 34 bits to encode this string. There are other trees that use
+exactly 34 bits; for example you can simply swap any sibling nodes in the above tree and get a different
+but equally optimal encoding.
+
+The Huffman tree doesn’t appear as balanced as the fixed-length encoding tree. You’ve heard in our
+discussion on binary search trees that an unbalanced tree is bad thing. However, when a tree represents
+a character encoding, that lopsidedness is actually a good thing. The shorter paths represent those
+frequently occurring characters that are being encoded with fewer bits and the longer paths are used for
+more rare characters. Our plan is to shrink the total number of bits required by shortening the encoding
+for some characters at the expense of lengthening others. If all characters occurred with equal
+frequency, we would have a balanced tree where all paths were roughly equal. In such a situation we
+can't achieve much compression since there are no real repetitions or patterns to be exploited.
+Decoding using the tree
+
+A particularly compelling reason to diagram an encoding as a tree is the ease with which it supports
+decoding. Let's use the fixed-length tree to decode the stream of bits 011101010010011. Start at
+the beginning of the bits and at the root of the tree. The first bit is 0, so trace one step to the left, the
+next bit is 1, so follow right from there, the following bit is 1, so take another right. We have now
+landed at a leaf, which indicates that we have just completed reading the bit pattern for a single
+character. Looking at the leaf's label, we learn we just read a 'y'. Now we pick up where we left off in
+the bits and start tracing again from the root. Tracing 101 leads us to 'i'. Continuing through the
+remaining bits and we decode the string "yippy".
